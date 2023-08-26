@@ -5,6 +5,8 @@ import tkinter as tk
 import sys
 sys.dont_write_bytecode = True
 
+import DEMPS_ui as ui
+
 
 #Applicationクラスの定義
 class Application(tk.Frame):
@@ -12,10 +14,12 @@ class Application(tk.Frame):
         super().__init__(master)
 
         #メインウィンドウの生成
-        self.master.geometry("900x600")
+        self.master.geometry("860x510")
         self.master.title("DMPS")
         self.master.configure(bg="black")
         self.master.resizable(width=False, height=False)
+
+        ui.ui(self.master)
 
 #Applicationの実行関数
 def main():
