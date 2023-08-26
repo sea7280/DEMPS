@@ -5,6 +5,11 @@ import sys
 sys.dont_write_bytecode = True
 from tkinter.scrolledtext import ScrolledText
 
+import DEMPS_truecolor as true
+import DEMPS_loadDataFile as loaddata
+import DEMPS_exit as exit
+import DEMPS_tkraise as tkraise
+
 
 #フレームの生成関数
 def create_frame(master):
@@ -57,6 +62,7 @@ def create_label(area):
     label = tk.Label(setteingFrame, text=u'Check if you want to standardize. →'
                                                             , bg=background, fg=fontcolor, font=("",13)).place(x=5,  y=setpositionY + 330)
     label = tk.Label(setteingFrame, text=u'Teacher data'    , bg=background, fg=fontcolor, font=("",13)).place(x=5,  y=setpositionY + 360)
+    label = tk.Label(setteingFrame, text=u'Overlap ?'       , bg=background, fg=fontcolor, font=("",13)).place(x=5,  y=setpositionY + 390)
 
 ################################################# button #################################################
     label = tk.Label(runFrame,      text=u'Run'             , bg=background, fg=fontcolor, font=("",11)).place(x=10, y=0)
@@ -107,10 +113,6 @@ def create_entry(area):
     entry_fdi_max      = tk.Entry(settingsArea, width=4 , bg=background, fg=fontcolor, font=("", 14),justify=tk.RIGHT)
     entry_savefile     = tk.Entry(settingsArea, width=30, bg=background, fg=fontcolor, font=("", 13))
     entry_plt_title    = tk.Entry(settingsArea, width=25, bg=background, fg=fontcolor, font=("", 14))
-
-    entry_load_px      = tk.Entry(detectionArea, width=6 , bg=background, fg=fontcolor, font=("", 10))
-    entry_load_py      = tk.Entry(detectionArea, width=6 , bg=background, fg=fontcolor, font=("", 10))
-
     entry_teacherdata  = tk.Entry(settingsArea, width=45, bg=background, fg=fontcolor, font=("", 8))
     #entry設置
 
@@ -126,11 +128,8 @@ def create_entry(area):
     entry_ndvi_max.place(    x=280,y=setpositionY + 182)
     entry_fdi_min.place(     x=210,y=setpositionY + 212)
     entry_fdi_max.place(     x=280,y=setpositionY + 212)
-    
     entry_savefile.place(    x=130,y=setpositionY + 242)
     entry_plt_title.place(   x=130,y=setpositionY + 272)
-    #entry_load_px.place(     x=50,y=330)
-    #entry_load_py.place(     x=100,y=330)
     entry_teacherdata.place( x=110 ,y=setpositionY + 337)
     
     #enrtyに初期値を設定
@@ -145,8 +144,6 @@ def create_entry(area):
     entry_fdi_min.insert(0,0)
     entry_fdi_max.insert(0,0.1)
     entry_plt_title.insert(0,'data')
-    entry_load_px.insert(0,0)
-    entry_load_py.insert(0,0)
 
     #生成したentryを配列で保持
     entry_list = [entry_file        #0
@@ -211,19 +208,19 @@ def create_checkbutton(area, px, py):
     #ウィジェットを返り値として渡す
     return bln
 #ボタン生成
-def create_button(master, area, entry, listbox, chk, textbox, calcbox):
+def create_button(parameters):
         #引数から各ウィジェットを保持
-        entry_list     = entry
-        settingsArea   = area[0]
-        runArea        = area[1]
-        customArea     = area[2]
+        master         = parameters[0]
+        settingsArea   = parameters[1][0]
+        runArea        = parameters[1][1]
+        customArea     = parameters[1][2]
         #mainArea       = area[3]
         background     = "black"
         fontcolor      = "green2"
 
 ################################################# change frame #################################################
         Button = tk.Button(master,text=u'setting' , width=8, bg=background, fg=fontcolor,
-                            )
+                        command=lambda:tkraise.change_frame(settingsArea))
         Button.place(x=5,y=3, height=20)
         #背景、フォントカラーの設定
         #背景は黒、文字を緑にした
@@ -233,7 +230,7 @@ def create_button(master, area, entry, listbox, chk, textbox, calcbox):
         
 #拡張用エリア
         Button = tk.Button(master,text=u'custom', width=8, bg=background, fg=fontcolor,
-                              )
+                        command=lambda:tkraise.change_frame(customArea))
         Button.place(x=73,y=3, height=20)
 
 #終了
@@ -249,10 +246,10 @@ def create_button(master, area, entry, listbox, chk, textbox, calcbox):
         Button.place(x=300,y=148, height=30, width=90)
 #衛星データファイルの読み込みボタン
         Button = tk.Button(settingsArea,text=u'...', bg=background, fg=fontcolor, 
-                                )
+                           command=lambda:loaddata.load_dataFile(parameters[2][0]))
         Button.place(x=390, y=63, height=20 , width=20)
         Button = tk.Button(settingsArea,text=u'...', bg=background, fg=fontcolor,
-                                )
+                           command=lambda:loaddata.load_dataFile(parameters[2][1])     )
         Button.place(x=390, y=93, height=20 , width=20)
 #設定ファイルの読み込みボタン
         Button = tk.Button(settingsArea,text=u'Load', width=5, bg=background, fg=fontcolor, font=("",12),
@@ -272,7 +269,7 @@ def create_button(master, area, entry, listbox, chk, textbox, calcbox):
         deltapositionY = 40
 
 #RGB画像生成
-        Button = tk.Button(runArea,text=u'RGB', bg=background, fg=fontcolor)
+        Button = tk.Button(runArea,text=u'RGB', bg=background, fg=fontcolor, command=lambda:true.truecolor(parameters))
         Button.place(x=setpositionX + deltapositionX*0, y=setpositionY + deltapositionY*0, height=30 , width=110)
 #NDVI算出
         Button = tk.Button(runArea,text=u'NDVI', bg=background, fg=fontcolor)
@@ -318,8 +315,14 @@ def ui(master):
 
     standardization_chk = create_checkbutton(framelist, px=290, py=360)
     overlap_chk         = create_checkbutton(framelist, px=80, py=420)
-    chk = [standardization_chk, overlap_chk]
+
+    parameters_list = [master,                   #0
+                    framelist,              #1
+                    entry,                  #2
+                    textbox,                #3
+                    calcbox,                #4
+                    standardization_chk,    #5
+                    overlap_chk]            #6
 
 
-    listbox = None
-    create_button(master, framelist, entry, listbox, chk, textbox, calcbox)
+    create_button(parameters_list)
