@@ -29,9 +29,9 @@ def truecolor(parameters):
     redpath   = filepath[2]
 
     # -------------------------------- カラー合成 -------------------------------
-    band2_8bit_path = os.path.dirname(__file__) + "/tif_file/Band2_8bit.tif"
-    band3_8bit_path = os.path.dirname(__file__) + "/tif_file/Band3_8bit.tif"
-    band4_8bit_path = os.path.dirname(__file__) + "/tif_file/Band4_8bit.tif"
+    band2_8bit_path = os.path.dirname(__file__) + "/Band2_8bit.tif"
+    band3_8bit_path = os.path.dirname(__file__) + "/Band3_8bit.tif"
+    band4_8bit_path = os.path.dirname(__file__) + "/Band4_8bit.tif"
 
     # 切り出しの詳細
     minX          = setting_detail[4]
@@ -81,7 +81,7 @@ def truecolor(parameters):
     band = 3
 
     # 出力ファイルの設定を行う(True Color)
-    out_True_path = os.path.dirname(__file__) + "/tif_file/truecolor.tif"  # 出力ファイル名
+    out_True_path = os.path.dirname(__file__) + "/truecolor.tif"  # 出力ファイル名
 
     # 空の出力ファイルを作成する
     out1 = gdal.GetDriverByName("GTiff").Create(
@@ -109,6 +109,17 @@ def truecolor(parameters):
     image1 = mpimg.imread(out_True_path)
     plt.imshow(image1)
     plt.title(setting_detail[13])
+    #不要なので削除
+    b2_image = None
+    b3_image = None
+    b4_image = None
+    out1     = None
+    os.remove(band2_8bit_path)
+    os.remove(band3_8bit_path)
+    os.remove(band4_8bit_path)
+    os.remove(out_True_path)
 
     plt.show()
     plt.close()
+
+

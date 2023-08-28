@@ -32,8 +32,8 @@ def calc_ndvi(parameters):
 
 #--------------------------------------------- tif 
 
-    band4_8bit_path =os.path.dirname(__file__) + "/tif_file/Band4_8bit.tif"
-    band8_8bit_path =os.path.dirname(__file__) + "/tif_file/Band8_8bit.tif"
+    band4_8bit_path =os.path.dirname(__file__) + "/Band4_8bit.tif"
+    band8_8bit_path =os.path.dirname(__file__) + "/Band8_8bit.tif"
 
 #---------------------------------------------- 配列変換 
     gdal.Translate(band4_8bit_path ,redpath ,srcWin=[minX,minY,deltaX,deltaY])
@@ -51,6 +51,11 @@ def calc_ndvi(parameters):
 
     ndvi = (NIR_Band_array - RedBand_array)/(NIR_Band_array + RedBand_array)
 
+    b4_image = None
+    b8_image = None
+    os.remove(band4_8bit_path)
+    os.remove(band8_8bit_path)
+    
     log.insert(tk.END,"Complete calculation NDVI.\n")
     log.see("end")
     

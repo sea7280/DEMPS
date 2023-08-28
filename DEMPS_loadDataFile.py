@@ -13,6 +13,6 @@ def load_teacherdata(ent):
         ent.delete(0, tk.END)
         #data_file = tkinter.filedialog.askdirectory()
         fTyp = [("", "*")]
-        iFile = os.path.abspath(os.path.dirname(__file__))
-        data_file = tkinter.filedialog.askopenfilename(filetype = fTyp, initialdir = iFile)
+        dir = os.path.join(os.environ['USERPROFILE'], 'Desktop')
+        data_file = tkinter.filedialog.askopenfilename(filetype = fTyp, initialdir = dir)
         ent.insert(tk.END,data_file)

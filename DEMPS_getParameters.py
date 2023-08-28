@@ -16,13 +16,12 @@ def getParameters(parameters):
     ndvi_max       = float(parameters[2][9].get())
     fdi_min        = float(parameters[2][10].get())
     fdi_max        = float(parameters[2][11].get())
-    saveFileName   = parameters[2][12].get()
+    k_value        = int(parameters[2][12].get())
     title          = parameters[2][13].get()
     teacher        = parameters[2][14].get()
-    check          = parameters[5].get()
     textbox        = parameters[3]
     calc           = parameters[4]
-    overlap        = parameters[6].get()
+    overlap        = parameters[5].get()
 
 
 #変数：setting_detail
@@ -38,13 +37,12 @@ def getParameters(parameters):
                       ndvi_max,         #9
                       fdi_min,          #10
                       fdi_max,          #11
-                      saveFileName,     #12
+                      k_value,          #12
                       title,            #13
-                      check,            #14
+                      calc,             #14
                       textbox,          #15
                       teacher,          #16
-                      calc,             #17
-                      overlap           #18
+                      overlap           #17
                       ] 
     
     return setting_detail

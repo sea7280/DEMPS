@@ -16,7 +16,7 @@ class Application(tk.Frame):
         #メインウィンドウの生成
         self.master.geometry("860x510")
         self.master.title("DMPS")
-        self.master.configure(bg="black")
+        self.master.configure(bg="gray88")
         self.master.resizable(width=False, height=False)
 
         ui.ui(self.master)
