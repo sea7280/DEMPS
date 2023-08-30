@@ -51,7 +51,10 @@ def knn_judge(ndvi, fdi, parameters):
         log.insert(tk.END,"Complete over sampling.\n")
         log.see("end")
         
+        
         result_data = []
+        
+        """
 
         #標準化
         sc = StandardScaler()
@@ -69,6 +72,7 @@ def knn_judge(ndvi, fdi, parameters):
         data = None
         log.insert(tk.END,"Complete standardization.\n")
         log.see("end")
+        """
 
         log.insert(tk.END,"Start Knn\n")
         log.see("end")

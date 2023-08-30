@@ -71,8 +71,6 @@ def create_label(area):
     label = tk.Label(setteingFrame, text=u'〜'              , bg=background, fg=fontcolor, font=("",13)).place(x=257,y=setpositionY + 240)
     label = tk.Label(setteingFrame, text=u'K-NN Value'      , bg=background, fg=fontcolor, font=("",13)).place(x=50, y=setpositionY + 270)
     label = tk.Label(setteingFrame, text=u'plot title'      , bg=background, fg=fontcolor, font=("",13)).place(x=10, y=setpositionY + 300)
-    label = tk.Label(setteingFrame, text=u'Check if you want to standardize. →'
-                                                            , bg=background, fg=fontcolor, font=("",13)).place(x=5,  y=setpositionY + 330)
     label = tk.Label(setteingFrame, text=u'Teacher data'    , bg=background, fg=fontcolor, font=("",13)).place(x=5,  y=setpositionY + 360)
     label = tk.Label(setteingFrame, text=u'Overlap ?'       , bg=background, fg=fontcolor, font=("",13)).place(x=50,  y=setpositionY + 390)
 
@@ -322,7 +320,6 @@ def create_button(parameters):
                 ndvi     = DEMPS_ndvi.calc_ndvi(parameters)
                 fdi      = DEMPS_fdi.calc_fdi(parameters)
                 knn_result = knn.knn_judge(ndvi, fdi, parameters)
-                print(knn_result)
                 knnRGB.knnRGB(parameters, knn_result)
         Button = tk.Button(runArea,text=u'Judge', bg=background, fg=fontcolor, command=lambda:knn_createImage())
         Button.place(x=setpositionX + deltapositionX*2, y=setpositionY + deltapositionY*1, height=30 , width=110)
