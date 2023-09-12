@@ -22,6 +22,7 @@ import DEMPS_knn as knn
 import DEMPS_loadJudgeLog as JudgeLog
 import DEMPS_resulutMapping as heatmap
 import DEMPS_customs as custom
+import DEMPS_crossEvaluate as cross
 
 #フレームの生成関数
 def create_frame(master):
@@ -71,7 +72,7 @@ def create_label(area):
     label = tk.Label(setteingFrame, text=u'〜'              , bg=background, fg=fontcolor, font=("",13)).place(x=257,y=setpositionY + 240)
     label = tk.Label(setteingFrame, text=u'K-NN Value'      , bg=background, fg=fontcolor, font=("",13)).place(x=50, y=setpositionY + 270)
     label = tk.Label(setteingFrame, text=u'plot title'      , bg=background, fg=fontcolor, font=("",13)).place(x=10, y=setpositionY + 300)
-    label = tk.Label(setteingFrame, text=u'Teacher data'    , bg=background, fg=fontcolor, font=("",13)).place(x=5,  y=setpositionY + 360)
+    label = tk.Label(setteingFrame, text=u'Teacher data'    , bg=background, fg=fontcolor, font=("",13)).place(x=5,  y=setpositionY + 330)
     label = tk.Label(setteingFrame, text=u'Overlap ?'       , bg=background, fg=fontcolor, font=("",13)).place(x=50,  y=setpositionY + 390)
 
 ################################################# button #################################################
@@ -139,7 +140,7 @@ def create_entry(area):
     entry_fdi_max.place(     x=280,y=setpositionY + 212)
     entry_k_value.place(     x=250,y=setpositionY + 242)
     entry_plt_title.place(   x=130,y=setpositionY + 272)
-    entry_teacherdata.place( x=110 ,y=setpositionY + 337)
+    entry_teacherdata.place( x=110 ,y=setpositionY + 307)
     
     #enrtyに初期値を設定
     entry_lumi.insert(0,10000)
@@ -261,17 +262,20 @@ def create_button(parameters):
         Button.place(x=150,y=30, height=30, width=90)
 #設定のボタン保存
         Button = tk.Button(settingsArea,text=u'Save Settings', bg=background, fg=fontcolor, command=lambda:saveSetting.saveSettings(parameters))
-        Button.place(x=300, y=430, height=30 , width=100)
+        Button.place(x=280, y=430, height=30 , width=100)
 #教師データ選択
         Button = tk.Button(settingsArea,text=u'...', bg=background, fg=fontcolor,
                            command=lambda:loaddata.load_teacherdata(parameters[2][14]))
-        Button.place(x=390,y=395, height=20 , width=20)
+        Button.place(x=390,y=365, height=20 , width=20)
 
         #ボタンの生成座標の設定
         setpositionX   = 35
         deltapositionX = 120
         setpositionY   = 50
         deltapositionY = 40
+#交差検証
+        Button = tk.Button(settingsArea,text=u'Cross Evaluate', bg=background, fg=fontcolor, command=lambda:cross.evaluate(parameters))
+        Button.place(x=280, y=390, height=30 , width=100)
 
 #RGB画像生成
         Button = tk.Button(runArea,text=u'RGB', bg=background, fg=fontcolor, command=lambda:true.truecolor(parameters))

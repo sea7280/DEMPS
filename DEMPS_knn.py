@@ -4,7 +4,6 @@
 import pandas as pd
 import os
 import datetime
-import numpy as np
 import tkinter as tk
 # k-近傍法（k-NN）
 from sklearn.neighbors import KNeighborsClassifier
