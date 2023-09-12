@@ -1,0 +1,13 @@
+day:2023-08-30
+Satellite data path:C:/Users/KamedaLab/Downloads/S2B_MSIL1C_20230704T013659_N0509_R117_T53SPV_20230704T032602
+Acolite data path:C:/Users/KamedaLab/Desktop/acolite_data/S2B_MSIL1C_20230704PV NE_ACO
+luminance:10000
+hist luminance:10000
+px:0
+py:6000
+deltaX:2000
+deltaY:4980
+NDVI range:-1.0~1.0
+FDI range:0.0~0.1
+file name:7
+graph title:biwako NE
