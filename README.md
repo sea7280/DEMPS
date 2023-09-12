@@ -7,3 +7,6 @@ DEtecting Marine Plastic using Satellite software
 開発環境
 環境名：demps
 Activate：.\demps\Scripts\activate
+
+2023/8/28
+ver1.0 作業完了
