@@ -63,10 +63,12 @@ def evaluate(parameters):
         """
         if normalize:
             cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-            print("Normalized confusion matrix")
+            log.insert(tk.END,"Normalized confusion matrix" + "\n")
+            log.see("end")
         else:
-            print('Confusion matrix, without normalization')
-        print(cm)
+            log.insert(tk.END,"Confusion matrix, without normalization" + "\n")
+            log.see("end")
+        #print(cm)
         plt.imshow(cm, interpolation='nearest', cmap=cmap)
         plt.title(title)
         plt.colorbar()
